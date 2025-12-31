@@ -1,0 +1,13 @@
+{
+  "home": {
+    "title": "เพื่อเริ่มต้น แก้ไขไฟล์ page.tsx",
+    "description": "กำลังมองหาจุดเริ่มต้นหรือคำแนะนำเพิ่มเติม? ไปที่ <templates>เทมเพลต</templates> หรือศูนย์ <learning>การเรียนรู้</learning>",
+    "deployNow": "เริ่มใช้งานทันที",
+    "documentation": "เอกสาร"
+  },
+  "metadata": {
+    "title": "สร้าง Next App",
+    "description": "สร้างโดย create next app"
+  }
+}
+
