@@ -142,6 +142,7 @@ const getProductDetails = (productId: string, baseProduct: BaseProduct): Product
 
   const defaultDetails: ProductDetail = {
     ...baseProduct,
+    category: baseProduct.category || 'ทั่วไป',
     fullDescription: baseProduct.description + ' ผลิตภัณฑ์คุณภาพสูงที่ผ่านการวิจัยและพัฒนาเพื่อให้ได้ผลลัพธ์ที่ดีที่สุด',
     price: 399,
     originalPrice: 599,
