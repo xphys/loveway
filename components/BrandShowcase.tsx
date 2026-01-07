@@ -6,10 +6,10 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const brands = [
-  { name: "Celina's", color: "bg-pink-100" },
-  { name: "Rapha", color: "bg-green-100" },
-  { name: "Celvin", color: "bg-blue-100" },
-  { name: "Rapha Biotech", color: "bg-amber-100" }
+  { name: "Celina's", color: "bg-pink-100", image: "/brand/celina.png" },
+  { name: "Rapha", color: "bg-green-100", image: "/brand/rapha.png" },
+  { name: "Celvin", color: "bg-blue-100", image: "/brand/celvin.png" },
+  { name: "Rapha Biotech", color: "bg-amber-100", image: "/brand/rapha.png" }
 ];
 
 export default function BrandShowcase() {
@@ -64,24 +64,27 @@ export default function BrandShowcase() {
           {brands.map((brand, index) => (
             <motion.div
               key={index}
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col items-center cursor-pointer group"
               variants={itemVariants}
-              whileHover={{ scale: 1.1, y: -10 }}
-              transition={{ type: 'spring', stiffness: 300 }}
+              whileHover={{ y: -12 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
               <motion.div
-                className={`${brand.color} h-24 w-24 rounded-full flex items-center justify-center mb-4 relative overflow-hidden`}
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
+                className="bg-white h-40 w-40 rounded-full flex items-center justify-center mb-4 relative shadow-lg"
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 20px 25px -5px rgb(0 0 0 / 0.15), 0 8px 10px -6px rgb(0 0 0 / 0.15)"
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
               >
                 <Image
-                  src="/noimage.jpg"
+                  src={brand.image}
                   alt={brand.name}
                   fill
-                  className="object-cover rounded-full"
+                  className="object-contain p-8"
                 />
               </motion.div>
-              <h3 className="text-lg font-semibold text-gray-800">{brand.name}</h3>
+              <h3 className="text-base font-medium text-gray-700 group-hover:text-blue-600 transition-colors duration-300">{brand.name}</h3>
             </motion.div>
           ))}
         </motion.div>
