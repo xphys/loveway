@@ -1,39 +1,44 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 interface Product {
   id: string;
   name: string;
   description: string;
-  price: number;
   image: string;
   brand?: string;
+  show_front?: boolean;
+  is_suggest?: boolean;
 }
 
 interface ProductCarouselProps {
   title: string;
   products: Product[];
   viewAllLink?: string;
+  onProductClick?: (product: Product) => void;
 }
 
-export default function ProductCarousel({ title, products, viewAllLink }: ProductCarouselProps) {
+export default function ProductCarousel({ title, products, onProductClick }: ProductCarouselProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+  // Auto-slide effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        const maxIndex = Math.max(0, products.length - 4);
+        return prevIndex >= maxIndex ? 0 : prevIndex + 1;
+      });
+    }, 3000); // Slide every 3 seconds
+
+    return () => clearInterval(interval);
+  }, [products.length]);
 
   const itemVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -48,105 +53,93 @@ export default function ProductCarousel({ title, products, viewAllLink }: Produc
   };
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-28 bg-background overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8" ref={ref}>
         <motion.div
-          className="flex items-center justify-between mb-12"
+          className="flex items-center justify-between mb-14"
           initial={{ opacity: 0, y: -20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">{title}</h2>
-          {viewAllLink && (
-            <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
-              <Link
-                href={viewAllLink}
-                className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-2"
-              >
-                ดูทั้งหมด
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </Link>
-            </motion.div>
-          )}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{title}</h2>
         </motion.div>
 
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-        >
-          {products.map((product, index) => (
-            <motion.div
-              key={product.id}
-              variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-              className="bg-white rounded-xl border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-xl transition-all overflow-hidden group cursor-pointer"
-            >
+        <div className="relative overflow-hidden">
+          <motion.div
+            ref={carouselRef}
+            className="flex gap-8"
+            animate={{
+              x: `-${currentIndex * (100 / 4)}%`,
+            }}
+            transition={{
+              duration: 0.8,
+              ease: "easeInOut",
+            }}
+            style={{ width: `${(products.length / 4) * 100}%` }}
+          >
+            {products.map((product) => (
               <motion.div
-                className="h-48 bg-gray-100 flex items-center justify-center relative overflow-hidden"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
+                key={product.id}
+                variants={itemVariants}
+                initial="hidden"
+                animate={isInView ? 'visible' : 'hidden'}
+                whileHover={{ y: -10, scale: 1.02 }}
+                transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+                onClick={() => onProductClick?.(product)}
+                className="group relative bg-card rounded-2xl border border-border hover:border-primary/30 shadow-md hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden cursor-pointer"
+                style={{ minWidth: `calc(25% - 1.5rem)` }}
               >
-                <Image
-                  src="/noimage.jpg"
-                  alt={product.name}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
-                />
-                <motion.div
-                  className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300"
-                  initial={false}
-                />
-              </motion.div>
-              <div className="p-4">
-                <h3 className="font-semibold text-gray-800 mb-2">{product.name}</h3>
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
-                <div className="flex items-center justify-between">
-                  <motion.span
-                    className="text-lg font-bold text-blue-600"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    ฿{product.price.toFixed(2)}
-                  </motion.span>
-                  <motion.button
-                    className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    เพิ่มลงตะกร้า
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                {/* Image Container */}
+                <div className="relative h-52 bg-gradient-to-br from-secondary to-muted overflow-hidden">
+                  <Image
+                    src={product.image.startsWith('/') ? product.image : `/noimage.jpg`}
+                    alt={product.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                    unoptimized={product.image.startsWith('/')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
+                  {/* Brand Badge (if exists) */}
+                  {product.brand && (
+                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-foreground/80">
+                      {product.brand}
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-5">
+                  <h3 className="font-bold text-card-foreground mb-2 text-base group-hover:text-primary transition-colors duration-300 line-clamp-1">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+                    {product.description}
+                  </p>
+                </div>
+
+                {/* Decorative gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Carousel indicators */}
         <motion.div
           className="flex justify-center gap-2 mt-8"
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ delay: 0.5 }}
         >
-          {products.map((_, index) => (
+          {Array.from({ length: Math.max(1, products.length - 3) }).map((_, index) => (
             <motion.div
               key={index}
-              className="h-2 w-2 rounded-full bg-gray-300"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 1, 0.5],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: index * 0.2,
-              }}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-gray-300'
+              }`}
+              onClick={() => setCurrentIndex(index)}
+              style={{ cursor: 'pointer' }}
             />
           ))}
         </motion.div>
@@ -154,4 +147,3 @@ export default function ProductCarousel({ title, products, viewAllLink }: Produc
     </section>
   );
 }
-
