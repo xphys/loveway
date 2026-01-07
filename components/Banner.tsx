@@ -2,18 +2,36 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { Sparkles, Heart, Leaf, Shield } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { Sparkles, Heart, Leaf, Shield, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import type { Product } from '@/types/product';
 
 interface BannerProps {
   text: string;
   variant?: 'green' | 'blue';
   backgroundImage?: string;
+  products?: Product[];
+  onProductClick?: (product: Product) => void;
 }
 
-export default function Banner({ text, variant = 'green', backgroundImage }: BannerProps) {
+export default function Banner({ text, variant = 'green', backgroundImage, products = [], onProductClick }: BannerProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Auto-slide effect for products
+  useEffect(() => {
+    if (products.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => {
+        const maxIndex = Math.max(0, products.length - 3);
+        return prevIndex >= maxIndex ? 0 : prevIndex + 1;
+      });
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [products.length]);
 
   const isGreen = variant === 'green';
   
@@ -98,6 +116,11 @@ export default function Banner({ text, variant = 'green', backgroundImage }: Ban
         </div>
       )}
 
+      {/* Dark overlay for better text/product visibility when background image exists */}
+      {backgroundImage && (
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]" />
+      )}
+
       {/* Grid overlay */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] opacity-50" />
 
@@ -176,6 +199,116 @@ export default function Banner({ text, variant = 'green', backgroundImage }: Ban
             <div className={`h-px w-12 bg-gradient-to-l transparent ${isGreen ? 'via-emerald-500' : 'via-blue-500'} to-transparent`} />
           </motion.div>
         </motion.div>
+
+        {/* Product Carousel */}
+        {products.length > 0 && (
+          <motion.div
+            className="mt-12 md:mt-16"
+            initial={{ opacity: 0, y: 50 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <div className="relative">
+              {/* Navigation buttons */}
+              {products.length > 3 && (
+                <>
+                  <button
+                    onClick={() => setCurrentIndex((prev) => (prev > 0 ? prev - 1 : Math.max(0, products.length - 3)))}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 transition-all shadow-lg hover:scale-110"
+                    aria-label="Previous products"
+                  >
+                    <ChevronLeft className={`h-5 w-5 ${isGreen ? 'text-emerald-100' : 'text-blue-100'}`} />
+                  </button>
+                  <button
+                    onClick={() => setCurrentIndex((prev) => (prev < products.length - 3 ? prev + 1 : 0))}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 transition-all shadow-lg hover:scale-110"
+                    aria-label="Next products"
+                  >
+                    <ChevronRight className={`h-5 w-5 ${isGreen ? 'text-emerald-100' : 'text-blue-100'}`} />
+                  </button>
+                </>
+              )}
+
+              {/* Carousel container */}
+              <div className="overflow-hidden px-12" ref={carouselRef}>
+                <motion.div
+                  className="flex gap-6"
+                  animate={{
+                    x: `-${currentIndex * 33.333}%`,
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    ease: "easeInOut",
+                  }}
+                >
+                  {products.map((product, idx) => (
+                    <motion.div
+                      key={product.id}
+                      onClick={() => onProductClick?.(product)}
+                      className="group relative flex-shrink-0 cursor-pointer"
+                      style={{ minWidth: 'calc(33.333% - 1rem)' }}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                      transition={{ duration: 0.5, delay: 0.9 + idx * 0.1 }}
+                      whileHover={{ y: -8, scale: 1.02 }}
+                    >
+                      <div className="relative h-64 rounded-2xl overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl group-hover:border-white/40 transition-all duration-300">
+                        {/* Product Image */}
+                        <div className="relative h-full w-full">
+                          <Image
+                            src={product.image.startsWith('/') ? product.image : `/noimage.jpg`}
+                            alt={product.name}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                            unoptimized={product.image.startsWith('/')}
+                          />
+                          {/* Gradient overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                          
+                          {/* Product Info */}
+                          <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                            {product.brand && (
+                              <div className="text-xs font-semibold mb-1 opacity-90">
+                                {product.brand}
+                              </div>
+                            )}
+                            <h3 className="font-bold text-lg mb-1 line-clamp-1 group-hover:text-emerald-300 transition-colors">
+                              {product.name}
+                            </h3>
+                            <p className="text-xs opacity-80 line-clamp-2">
+                              {product.description}
+                            </p>
+                          </div>
+
+                          {/* Shine effect on hover */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Carousel indicators */}
+              {products.length > 3 && (
+                <div className="flex justify-center gap-2 mt-6">
+                  {Array.from({ length: Math.max(1, products.length - 2) }).map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`h-2 rounded-full transition-all duration-300 ${
+                        index === currentIndex 
+                          ? `${isGreen ? 'bg-emerald-400' : 'bg-blue-400'} w-8` 
+                          : 'bg-white/30 w-2 hover:bg-white/50'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
       </div>
 
       <style jsx>{`

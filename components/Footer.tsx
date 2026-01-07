@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Facebook, Instagram, Youtube, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
+import { Facebook } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
@@ -17,48 +18,65 @@ export default function Footer() {
             transition={{ duration: 0.5 }}
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="h-11 w-11 rounded-xl bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
-                <div className="h-6 w-6 rounded-full bg-white/95"></div>
-              </div>
+              <motion.div
+                className="relative h-11 w-11 rounded-full overflow-hidden"
+                whileHover={{ scale: 1.08 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              >
+                <Image
+                  src="/logo.png"
+                  alt="Love Way Logo"
+                  width={44}
+                  height={44}
+                  className="object-cover rounded-full"
+                />
+              </motion.div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">Love Way</span>
             </div>
             <p className="text-muted-foreground text-sm mb-3 leading-relaxed">123 ถนนสุขุมวิท กรุงเทพมหานคร 10110</p>
-            <p className="text-muted-foreground text-sm mb-2">โทร: 02-123-4567</p>
+            <p className="text-muted-foreground text-sm mb-2">โทร: 092 332 3421</p>
             <p className="text-muted-foreground text-sm mb-6">อีเมล: info@loveway.com</p>
 
             {/* Social Links */}
             <div className="flex gap-3">
               <motion.a
-                href="#"
+                href="https://www.facebook.com/lovewayprobiotics"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-accent/50 text-foreground/60 hover:text-primary hover:bg-accent transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Facebook className="h-5 w-5" />
               </motion.a>
+
               <motion.a
-                href="#"
+                href="https://www.tiktok.com/@loveway.official"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-accent/50 text-foreground/60 hover:text-primary hover:bg-accent transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Instagram className="h-5 w-5" />
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
               </motion.a>
               <motion.a
-                href="#"
+                href="https://lin.ee/rPMbwbP"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-accent/50 text-foreground/60 hover:text-primary hover:bg-accent transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <MessageCircle className="h-5 w-5" />
-              </motion.a>
-              <motion.a
-                href="#"
-                className="p-2.5 rounded-xl bg-accent/50 text-foreground/60 hover:text-primary hover:bg-accent transition-all duration-300"
-                whileHover={{ scale: 1.1, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Youtube className="h-5 w-5" />
+                <Image
+                  src="/footer/line.png"
+                  alt="LINE"
+                  width={20}
+                  height={20}
+                  className="object-contain"
+                />
               </motion.a>
             </div>
           </motion.div>

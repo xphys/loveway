@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Sparkles, Target, Users, TrendingUp } from 'lucide-react';
+import { Sparkles, Target, Users, TrendingUp, Award, ShieldCheck, Leaf, DollarSign } from 'lucide-react';
 
 export default function About() {
   const ref = useRef(null);
@@ -137,25 +137,28 @@ export default function About() {
 
                   <div className="space-y-4">
                     {[
-                      { title: 'คุณภาพสูงสุด', desc: 'ผลิตภัณฑ์ผ่านการรับรองมาตรฐาน' },
-                      { title: 'ปลอดภัย', desc: 'ทดสอบและผ่านการวิจัยอย่างละเอียด' },
-                      { title: 'เป็นมิตรต่อสิ่งแวดล้อม', desc: 'ใส่ใจธรรมชาติและความยั่งยืน' },
-                      { title: 'ราคาเป็นธรรม', desc: 'คุณภาพดีในราคาที่คุ้มค่า' },
-                    ].map((item, index) => (
-                      <motion.div
-                        key={index}
-                        className="flex items-start gap-4 p-4 rounded-xl bg-blue-50/50 hover:bg-blue-50 transition-colors duration-300"
-                        whileHover={{ x: 8 }}
-                      >
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md">
-                          {index + 1}
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
-                          <p className="text-sm text-gray-600">{item.desc}</p>
-                        </div>
-                      </motion.div>
-                    ))}
+                      { title: 'คุณภาพสูงสุด', desc: 'ผลิตภัณฑ์ผ่านการรับรองมาตรฐาน', icon: Award, gradient: 'from-amber-500 to-orange-500', bg: 'bg-amber-50/50 hover:bg-amber-50' },
+                      { title: 'ปลอดภัย', desc: 'ทดสอบและผ่านการวิจัยอย่างละเอียด', icon: ShieldCheck, gradient: 'from-green-600 to-emerald-600', bg: 'bg-green-50/50 hover:bg-green-50' },
+                      { title: 'เป็นมิตรต่อสิ่งแวดล้อม', desc: 'ใส่ใจธรรมชาติและความยั่งยืน', icon: Leaf, gradient: 'from-emerald-500 to-teal-500', bg: 'bg-emerald-50/50 hover:bg-emerald-50' },
+                      { title: 'ราคาเป็นธรรม', desc: 'คุณภาพดีในราคาที่คุ้มค่า', icon: DollarSign, gradient: 'from-purple-600 to-indigo-600', bg: 'bg-purple-50/50 hover:bg-purple-50' },
+                    ].map((item, index) => {
+                      const IconComponent = item.icon;
+                      return (
+                        <motion.div
+                          key={index}
+                          className={`flex items-start gap-4 p-4 rounded-xl ${item.bg} transition-colors duration-300`}
+                          whileHover={{ x: 8 }}
+                        >
+                          <div className={`flex-shrink-0 w-8 h-8 bg-gradient-to-br ${item.gradient} rounded-lg flex items-center justify-center text-white shadow-md`}>
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                            <p className="text-sm text-gray-600">{item.desc}</p>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
