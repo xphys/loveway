@@ -5,6 +5,10 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
 import ProductCategories from '@/components/ProductCategories';
+import ProductCategories1 from '@/components/ProductCategories1';
+import ProductCategories2 from '@/components/ProductCategories2';
+import ProductCategories3 from '@/components/ProductCategories3';
+import ProductCategories4 from '@/components/ProductCategories4';
 import BrandShowcase from '@/components/BrandShowcase';
 import ProductCarousel from '@/components/ProductCarousel';
 import ProductDetailModal from '@/components/ProductDetailModal';
@@ -12,312 +16,14 @@ import Banner from '@/components/Banner';
 import Articles from '@/components/Articles';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
+import { Product } from '@/types/product';
+import { allProducts } from '@/app/[locale]/data/product';
 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-  brand?: string;
-  category?: string;
-  show_front?: boolean;
-  is_suggest?: boolean;
-}
-
-const recommendedProducts: Product[] = [
-  {
-    id: '1',
-    name: 'CELVIN',
-    description: 'ผลิตภัณฑ์ทำความสะอาดคุณภาพสูง',
-    image: 'celvin',
-    brand: 'Celvin',
-    category: 'recommended',
-    show_front: true,
-    is_suggest: true
-  },
-  {
-    id: '2',
-    name: 'GEMAS',
-    description: 'ผลิตภัณฑ์บำรุงผิวจากธรรมชาติ',
-    image: 'gemas',
-    brand: 'Gemas',
-    category: 'recommended',
-    show_front: true,
-    is_suggest: true
-  },
-  {
-    id: '3',
-    name: 'GEMAS Premium',
-    description: 'ผลิตภัณฑ์บำรุงผิวพรีเมียม',
-    image: 'gemas-premium',
-    brand: 'Gemas',
-    category: 'recommended',
-    show_front: false,
-    is_suggest: false
-  },
-  {
-    id: '4',
-    name: 'GEMAS Care',
-    description: 'ผลิตภัณฑ์ดูแลผิวอย่างอ่อนโยน',
-    image: 'gemas-care',
-    brand: 'Gemas',
-    category: 'recommended',
-    show_front: false,
-    is_suggest: false
-  }
-];
-
-const skincareProducts: Product[] = [
-  {
-    id: '5',
-    name: 'ผลิตภัณฑ์บำรุงผิว 1',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_1.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: true,
-    is_suggest: true
-  },
-  {
-    id: '6',
-    name: 'ผลิตภัณฑ์บำรุงผิว 2',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_2.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '7',
-    name: 'ผลิตภัณฑ์บำรุงผิว 3',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_3.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '8',
-    name: 'ผลิตภัณฑ์บำรุงผิว 4',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_4.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '9',
-    name: 'ผลิตภัณฑ์บำรุงผิว 5',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_5.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '10',
-    name: 'ผลิตภัณฑ์บำรุงผิว 6',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_6.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '11',
-    name: 'ผลิตภัณฑ์บำรุงผิว 7',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_7.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: false,
-    is_suggest: false
-  },
-  {
-    id: '12',
-    name: 'ผลิตภัณฑ์บำรุงผิว 8',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_8.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: false,
-    is_suggest: false
-  },
-  {
-    id: '13',
-    name: 'ผลิตภัณฑ์บำรุงผิว 9',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_9.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: false,
-    is_suggest: false
-  },
-  {
-    id: '14',
-    name: 'ผลิตภัณฑ์บำรุงผิว 10',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_10.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: false,
-    is_suggest: false
-  },
-  {
-    id: '15',
-    name: 'ผลิตภัณฑ์บำรุงผิว 11',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_11.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: false,
-    is_suggest: false
-  },
-  {
-    id: '16',
-    name: 'ผลิตภัณฑ์บำรุงผิว 12',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูง',
-    image: '/product/skincare/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_12.jpg',
-    brand: 'Skincare',
-    category: 'skincare',
-    show_front: false,
-    is_suggest: false
-  }
-];
-
-const herbalProducts: Product[] = [
-  {
-    id: '17',
-    name: 'RAPHA Herbal',
-    description: 'ผลิตภัณฑ์สมุนไพรเพื่อสุขภาพ',
-    image: 'rapha-herbal',
-    brand: 'Rapha',
-    category: 'herbal',
-    show_front: true,
-    is_suggest: true
-  },
-  {
-    id: '18',
-    name: 'RAPHA Wellness',
-    description: 'ผลิตภัณฑ์เสริมสุขภาพ',
-    image: 'rapha-wellness',
-    brand: 'Rapha',
-    category: 'herbal',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '19',
-    name: 'RAPHA Natural',
-    description: 'ผลิตภัณฑ์จากธรรมชาติ 100%',
-    image: 'rapha-natural',
-    brand: 'Rapha',
-    category: 'herbal',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '20',
-    name: 'RAPHA Organic',
-    description: 'ผลิตภัณฑ์ออร์แกนิกคุณภาพสูง',
-    image: 'rapha-organic',
-    brand: 'Rapha',
-    category: 'herbal',
-    show_front: true,
-    is_suggest: false
-  }
-];
-
-const cleaningProducts: Product[] = [
-  {
-    id: '21',
-    name: 'CELVIN All-Purpose',
-    description: 'น้ำยาทำความสะอาดอเนกประสงค์',
-    image: 'celvin-all-purpose',
-    brand: 'Celvin',
-    category: 'cleaning',
-    show_front: true,
-    is_suggest: true
-  },
-  {
-    id: '22',
-    name: 'CELVIN Kitchen',
-    description: 'น้ำยาทำความสะอาดครัว',
-    image: 'celvin-kitchen',
-    brand: 'Celvin',
-    category: 'cleaning',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '23',
-    name: 'CELVIN Bathroom',
-    description: 'น้ำยาทำความสะอาดห้องน้ำ',
-    image: 'celvin-bathroom',
-    brand: 'Celvin',
-    category: 'cleaning',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '24',
-    name: 'CELVIN Floor',
-    description: 'น้ำยาทำความสะอาดพื้น',
-    image: 'celvin-floor',
-    brand: 'Celvin',
-    category: 'cleaning',
-    show_front: true,
-    is_suggest: false
-  }
-];
-
-const petProducts: Product[] = [
-  {
-    id: '25',
-    name: 'RAPHA Pet Shampoo',
-    description: 'แชมพูสำหรับสัตว์เลี้ยง',
-    image: 'rapha-pet-shampoo',
-    brand: 'Rapha Biotech',
-    category: 'pet-care',
-    show_front: true,
-    is_suggest: true
-  },
-  {
-    id: '26',
-    name: 'RAPHA Pet Care',
-    description: 'ผลิตภัณฑ์ดูแลสัตว์เลี้ยง',
-    image: 'rapha-pet-care',
-    brand: 'Rapha Biotech',
-    category: 'pet-care',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '27',
-    name: 'RAPHA Pet Food',
-    description: 'อาหารเสริมสำหรับสัตว์เลี้ยง',
-    image: 'rapha-pet-food',
-    brand: 'Rapha Biotech',
-    category: 'pet-care',
-    show_front: true,
-    is_suggest: false
-  },
-  {
-    id: '28',
-    name: 'RAPHA Pet Health',
-    description: 'ผลิตภัณฑ์เสริมสุขภาพสัตว์เลี้ยง',
-    image: 'rapha-pet-health',
-    brand: 'Rapha Biotech',
-    category: 'pet-care',
-    show_front: true,
-    is_suggest: false
-  }
-];
+const suggestedProducts = allProducts.filter(p => p.is_suggest === true);
+const frontSkincareProducts = allProducts.filter((product: Product) => product.category === 'skincare' && product.front_show === true);
+const frontHerbalProducts = allProducts.filter((product: Product) => product.category === 'herbal' && product.front_show === true);
+const frontCleaningProducts = allProducts.filter((product: Product) => product.category === 'cleaning' && product.front_show === true);
+const frontPetProducts = allProducts.filter((product: Product) => product.category === 'pet-care' && product.front_show === true);
 
 export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -333,22 +39,6 @@ export default function Home() {
     setSelectedProduct(null);
   };
 
-  // Get all products and filter by is_suggest for recommended section
-  const allProducts = [
-    ...recommendedProducts,
-    ...skincareProducts,
-    ...herbalProducts,
-    ...cleaningProducts,
-    ...petProducts
-  ];
-  const suggestedProducts = allProducts.filter(p => p.is_suggest === true);
-
-  // Filter products by show_front flag for each category
-  const frontSkincareProducts = skincareProducts.filter(p => p.show_front === true);
-  const frontHerbalProducts = herbalProducts.filter(p => p.show_front === true);
-  const frontCleaningProducts = cleaningProducts.filter(p => p.show_front === true);
-  const frontPetProducts = petProducts.filter(p => p.show_front === true);
-
   return (
     <motion.div
       className="min-h-screen bg-white"
@@ -359,25 +49,52 @@ export default function Home() {
       <Header />
       <Hero />
       <About />
-      <ProductCategories />
+      
+      {/* Product Categories Variants - Select Your Favorite Design */}
+      <div id="product-categories" className="relative flex items-center justify-center my-12">
+        <div className="w-full h-1 bg-gradient-to-r from-green-300 via-blue-200 to-purple-300 rounded-full opacity-70" />
+        <div className="absolute left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded-full shadow-md flex items-center gap-2 border border-gray-200">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" className="text-green-500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="14" cy="12" r="6" stroke="currentColor" strokeWidth="2" fill="none"/>
+            <ellipse cx="14" cy="11" rx="9" ry="7" stroke="currentColor" strokeWidth="2" fill="none"/>
+            <rect x="12" y="18" width="4" height="7" rx="2" fill="currentColor"/>
+          </svg>
+          <span className="font-semibold text-base md:text-lg text-gray-700 tracking-wide">
+            ผลิตภัณฑ์คุณภาพสูงจากธรรมชาติ
+          </span>
+        </div>
+      </div>
+      <ProductCategories1 />
+      
+      {/* <div className="h-4 bg-gray-100" /> */}
+      
       <BrandShowcase />
-      <Banner text="ความสะอาด สุขภาพดี และความสงบใจ สำหรับทุกคน" variant="green" backgroundImage="/banner/1.png" />
+      <Banner 
+        text="ความสะอาด สุขภาพดี และความสงบใจ สำหรับทุกคน" 
+        variant="green" 
+        backgroundImage="/banner/1.png"
+        products={suggestedProducts.slice(0, 6)}
+        onProductClick={handleProductClick}
+      />
       <ProductCarousel
         title="สินค้าแนะนำ"
         products={suggestedProducts}
         viewAllLink="/products/recommended"
-        onProductClick={handleProductClick}
+        categoryFilter="recommended"
+        onProductClick={(product: Product) => handleProductClick(product)}
       />
       <ProductCarousel
         title="ผลิตภัณฑ์บำรุงผิว"
         products={frontSkincareProducts}
         viewAllLink="/products/skincare"
+        categoryFilter="skincare"
         onProductClick={handleProductClick}
       />
       <ProductCarousel
         title="ผลิตภัณฑ์สมุนไพรเพื่อสุขภาพ"
         products={frontHerbalProducts}
         viewAllLink="/products/herbal"
+        categoryFilter="herbal"
         onProductClick={handleProductClick}
       />
       <Banner text="เพื่อความสะอาดและสุขภาพดี เพื่อความสงบใจ" variant="blue" />
@@ -385,12 +102,14 @@ export default function Home() {
         title="ผลิตภัณฑ์ทำความสะอาด"
         products={frontCleaningProducts}
         viewAllLink="/products/cleaning"
+        categoryFilter="cleaning"
         onProductClick={handleProductClick}
       />
       <ProductCarousel
         title="ผลิตภัณฑ์สำหรับสัตว์เลี้ยง"
         products={frontPetProducts}
         viewAllLink="/products/pet-care"
+        categoryFilter="pet-care"
         onProductClick={handleProductClick}
       />
       <Banner text="เพื่อความสะอาดและสุขภาพดี เพื่อความสงบใจ" variant="blue" />

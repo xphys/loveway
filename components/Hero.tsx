@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, ShoppingBag, Leaf, Heart, TrendingUp } from 'lucide-react';
 import AnimatedBackground from './AnimatedBackground';
@@ -32,7 +32,7 @@ const itemVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/20">
+    <section className="relative min-h-screen -mt-16 pt-16 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/20">
       {/* Enhanced Animated Background */}
       <AnimatedBackground />
 
@@ -154,24 +154,32 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-4 pt-4"
               variants={itemVariants}
             >
+              <Link href="/products">
+                <motion.button
+                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-2xl shadow-xl shadow-blue-500/30 overflow-hidden w-full sm:w-auto"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    <ShoppingBag className="h-5 w-5" />
+                    ดูสินค้าทั้งหมด
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-blue-700 to-cyan-600"
+                    initial={{ x: '-100%' }}
+                    whileHover={{ x: 0 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.button>
+              </Link>
               <motion.button
-                className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-2xl shadow-xl shadow-blue-500/30 overflow-hidden"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  <ShoppingBag className="h-5 w-5" />
-                  ดูสินค้าทั้งหมด
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-700 to-cyan-600"
-                  initial={{ x: '-100%' }}
-                  whileHover={{ x: 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-              <motion.button
+                onClick={() => {
+                  const element = document.getElementById('product-categories');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
                 className="px-8 py-4 bg-white/80 backdrop-blur-md border-2 border-blue-200 text-blue-700 font-semibold rounded-2xl shadow-lg hover:bg-white transition-colors"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -192,7 +200,7 @@ export default function Hero() {
             <div className="relative h-[600px]">
               {/* Card 1 */}
               <motion.div
-                className="absolute top-0 right-0 w-64 h-80 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-blue-100/50 p-6"
+                className="absolute top-0 right-0 w-64 h-80 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-blue-100/50 overflow-hidden"
                 animate={{
                   y: [0, -20, 0],
                 }}
@@ -203,16 +211,18 @@ export default function Hero() {
                 }}
                 style={{ zIndex: 3 }}
               >
-                <div className="w-full h-48 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl mb-4 flex items-center justify-center">
-                  <Leaf className="h-16 w-16 text-blue-500" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">ผลิตภัณฑ์ธรรมชาติ</h3>
-                <p className="text-sm text-muted-foreground">100% จากธรรมชาติ</p>
+                <Image
+                  src="/hero/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_12.jpg"
+                  alt="Hero image 1"
+                  width={256}
+                  height={320}
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
 
               {/* Card 2 */}
               <motion.div
-                className="absolute top-32 left-0 w-64 h-80 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-cyan-100/50 p-6"
+                className="absolute top-32 left-0 w-64 h-80 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-cyan-100/50 overflow-hidden"
                 animate={{
                   y: [0, -20, 0],
                 }}
@@ -224,16 +234,18 @@ export default function Hero() {
                 }}
                 style={{ zIndex: 2 }}
               >
-                <div className="w-full h-48 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-2xl mb-4 flex items-center justify-center">
-                  <Heart className="h-16 w-16 text-cyan-500" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">อ่อนโยนต่อผิว</h3>
-                <p className="text-sm text-muted-foreground">เหมาะสำหรับทุกคน</p>
+                <Image
+                  src="/hero/LINE_ALBUM_ภาพแอด สกินแคร์ 12  ตัว_260107_2.jpg"
+                  alt="Hero image 2"
+                  width={256}
+                  height={320}
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
 
               {/* Card 3 */}
               <motion.div
-                className="absolute bottom-0 right-1/4 w-64 h-80 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-indigo-100/50 p-6"
+                className="absolute bottom-0 right-1/4 w-64 h-80 bg-white/90 backdrop-blur-xl rounded-3xl shadow-2xl border border-indigo-100/50 overflow-hidden"
                 animate={{
                   y: [0, -20, 0],
                 }}
@@ -245,11 +257,13 @@ export default function Hero() {
                 }}
                 style={{ zIndex: 1 }}
               >
-                <div className="w-full h-48 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-2xl mb-4 flex items-center justify-center">
-                  <TrendingUp className="h-16 w-16 text-indigo-500" />
-                </div>
-                <h3 className="font-bold text-lg mb-2">คุณภาพสูง</h3>
-                <p className="text-sm text-muted-foreground">มาตรฐานระดับโลก</p>
+                <Image
+                  src="/hero/LINE_ALBUM_ภาพแอดและรายละเอียดสินค้าสำหรับสัตว์_260108_4.jpg"
+                  alt="Hero image 3"
+                  width={256}
+                  height={320}
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
             </div>
           </motion.div>
@@ -290,4 +304,3 @@ export default function Hero() {
     </section>
   );
 }
-

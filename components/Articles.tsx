@@ -11,19 +11,19 @@ const articles = [
     id: 1,
     title: "วิธีดูแลผิวให้สุขภาพดี",
     excerpt: "เรียนรู้เทคนิคการดูแลผิวด้วยผลิตภัณฑ์ธรรมชาติ",
-    image: "bg-yellow-200"
+    image: "/article/A3894919-4249-4205-8CBE-9C7C3186CA8A.jpg"
   },
   {
     id: 2,
     title: "ประโยชน์ของสมุนไพรไทย",
     excerpt: "ค้นพบสรรพคุณของสมุนไพรไทยที่ช่วยบำรุงสุขภาพ",
-    image: "bg-gray-200"
+    image: "/article/C45F3A96-9EDA-4798-9B2E-9774121A325A.jpg"
   },
   {
     id: 3,
     title: "เคล็ดลับทำความสะอาดบ้าน",
     excerpt: "วิธีทำความสะอาดบ้านให้สะอาดและปลอดภัย",
-    image: "bg-red-200"
+    image: "/article/D018A4E8-5EA4-416E-A3A1-99B9C311502A.jpg"
   }
 ];
 
@@ -100,12 +100,12 @@ export default function Articles() {
                 className="bg-white rounded-lg shadow-md hover:shadow-2xl transition-shadow overflow-hidden block group"
               >
                 <motion.div
-                  className={`h-48 ${article.image} flex items-center justify-center relative overflow-hidden`}
+                  className="h-48 flex items-center justify-center relative overflow-hidden"
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.3 }}
                 >
                   <Image
-                    src="/noimage.jpg"
+                    src={article.image}
                     alt={article.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
