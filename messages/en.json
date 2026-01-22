@@ -16,6 +16,28 @@
     "description": "Your trusted source for premium beauty, skincare, herbal health, and pet care products. Quality brands for your wellness journey.",
     "ogImage": "/logo.png",
     "siteName": "Love Way"
+  },
+  "header": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "contact": "Contact"
+  },
+  "footer": {
+    "address": "123 Sukhumvit Road, Bangkok 10110",
+    "phone": "Tel",
+    "email": "Email",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "contact": "Contact Us",
+    "productCategories": "Product Categories",
+    "skincare": "Skincare",
+    "herbal": "Herbal Health",
+    "cleaning": "Cleaning Products",
+    "petCare": "Pet Care",
+    "copyright": "© Copyright Love Way 2025. All rights reserved."
   }
 }
 

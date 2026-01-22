@@ -1,13 +1,16 @@
 'use client';
 
-import { Search, ShoppingCart, User, Menu } from 'lucide-react';
-import Link from 'next/link';
+import { Menu } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const t = useTranslations('header');
 
   return (
     <motion.header
@@ -42,66 +45,43 @@ export default function Header() {
             href="/"
             className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors duration-200 relative group py-1"
           >
-            หน้าแรก
+            {t('home')}
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:w-full transition-all duration-300 rounded-full" />
           </Link>
           <Link
             href="/products"
             className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors duration-200 relative group py-1"
           >
-            สินค้า
+            {t('products')}
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:w-full transition-all duration-300 rounded-full" />
           </Link>
-          <Link
-            href="/about"
+          <a
+            href="#product-categories"
             className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors duration-200 relative group py-1"
           >
-            เกี่ยวกับเรา
+            {t('categories')}
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:w-full transition-all duration-300 rounded-full" />
-          </Link>
-          <Link
-            href="/contact"
+          </a>
+          <a
+            href="https://www.facebook.com/lovewayprobiotics"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors duration-200 relative group py-1"
           >
-            ติดต่อเรา
+            {t('contact')}
             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 group-hover:w-full transition-all duration-300 rounded-full" />
-          </Link>
+          </a>
         </nav>
 
-        {/* <div className="flex items-center gap-2">
-          <motion.button
-            className="p-2.5 text-foreground/60 hover:text-foreground rounded-xl hover:bg-accent/50 transition-all duration-200"
-            whileHover={{ scale: 1.08, y: -1 }}
-            whileTap={{ scale: 0.92 }}
-          >
-            <Search className="h-5 w-5" />
-          </motion.button>
-          <motion.button
-            className="p-2.5 text-foreground/60 hover:text-foreground rounded-xl hover:bg-accent/50 transition-all duration-200 relative"
-            whileHover={{ scale: 1.08, y: -1 }}
-            whileTap={{ scale: 0.92 }}
-          >
-            <ShoppingCart className="h-5 w-5" />
-            <motion.span
-              className="absolute top-1.5 right-1.5 h-2 w-2 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full shadow-sm"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            />
-          </motion.button>
-          <motion.button
-            className="p-2.5 text-foreground/60 hover:text-foreground rounded-xl hover:bg-accent/50 transition-all duration-200"
-            whileHover={{ scale: 1.08, y: -1 }}
-            whileTap={{ scale: 0.92 }}
-          >
-            <User className="h-5 w-5" />
-          </motion.button>
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <button
             className="md:hidden p-2.5 text-foreground/60 hover:text-foreground rounded-xl hover:bg-accent/50 transition-all duration-200"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <Menu className="h-5 w-5" />
           </button>
-        </div> */}
+        </div>
       </div>
 
       {mobileMenuOpen && (
@@ -114,21 +94,20 @@ export default function Header() {
         >
           <nav className="container mx-auto px-4 py-6 flex flex-col gap-4">
             <Link href="/" className="text-sm font-semibold text-foreground/70 hover:text-foreground hover:translate-x-1 transition-all duration-200">
-              หน้าแรก
+              {t('home')}
             </Link>
             <Link href="/products" className="text-sm font-semibold text-foreground/70 hover:text-foreground hover:translate-x-1 transition-all duration-200">
-              สินค้า
+              {t('products')}
             </Link>
-            <Link href="/about" className="text-sm font-semibold text-foreground/70 hover:text-foreground hover:translate-x-1 transition-all duration-200">
-              เกี่ยวกับเรา
-            </Link>
-            <Link href="/contact" className="text-sm font-semibold text-foreground/70 hover:text-foreground hover:translate-x-1 transition-all duration-200">
-              ติดต่อเรา
-            </Link>
+            <a href="#product-categories" className="text-sm font-semibold text-foreground/70 hover:text-foreground hover:translate-x-1 transition-all duration-200">
+              {t('categories')}
+            </a>
+            <a href="https://www.facebook.com/lovewayprobiotics" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-foreground/70 hover:text-foreground hover:translate-x-1 transition-all duration-200">
+              {t('contact')}
+            </a>
           </nav>
         </motion.div>
       )}
     </motion.header>
   );
 }
-
