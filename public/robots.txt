@@ -1,0 +1,10 @@
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://loveway.co.th/sitemap.xml
+
+# Block access to any admin or private paths (uncomment if needed)
+# Disallow: /admin/
+# Disallow: /api/

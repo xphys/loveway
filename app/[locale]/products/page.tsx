@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Header from '@/components/Header';
@@ -11,21 +12,26 @@ import { X, Filter } from 'lucide-react';
 import { Product } from '@/types/product'
 import { allProducts } from '@/app/[locale]/data/product';
 
-const categories = [
-  { value: 'all', label: 'ทั้งหมด' },
-  { value: 'recommended', label: 'สินค้าแนะนำ' },
-  { value: 'skincare', label: 'ผลิตภัณฑ์บำรุงผิว' },
-  { value: 'herbal', label: 'ผลิตภัณฑ์สมุนไพร' },
-  { value: 'cleaning', label: 'ผลิตภัณฑ์ทำความสะอาด' },
-  { value: 'pet-care', label: 'ผลิตภัณฑ์สำหรับสัตว์เลี้ยง' }
-];
-
 export default function ProductsPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations();
+  const tHome = useTranslations('home');
+  const tProducts = useTranslations('products');
+
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const categories = [
+    { value: 'all', label: tProducts('categoryAll') },
+    { value: 'recommended', label: tProducts('categoryRecommended') },
+    { value: 'skincare', label: tHome('skincareProducts') },
+    { value: 'herbal', label: tHome('herbalProducts') },
+    { value: 'cleaning', label: tHome('cleaningProducts') },
+    { value: 'pet-care', label: tHome('petCareProducts') }
+  ];
 
   // Initialize from URL params
   useEffect(() => {
@@ -54,7 +60,7 @@ export default function ProductsPage() {
     } else {
       params.set('category', category);
     }
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`/${locale}/products?${params.toString()}`, { scroll: false });
   };
 
   const handleProductClick = (product: Product) => {
@@ -70,7 +76,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      
+
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Page Header */}
@@ -81,10 +87,10 @@ export default function ProductsPage() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-              สินค้าทั้งหมด
+              {tProducts('pageTitle')}
             </h1>
             <p className="text-lg text-muted-foreground">
-              ค้นหาและเลือกสินค้าที่คุณต้องการ
+              {tProducts('pageSubtitle')}
             </p>
           </motion.div>
 
@@ -98,7 +104,7 @@ export default function ProductsPage() {
             <div className="flex items-center gap-4 flex-wrap">
               <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
                 <Filter className="h-4 w-4" />
-                <span>หมวดหมู่:</span>
+                <span>{tProducts('filterBy')}</span>
               </div>
               <div className="flex gap-2 flex-wrap">
                 {categories.map((category) => (
@@ -121,7 +127,7 @@ export default function ProductsPage() {
                   className="ml-auto flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <X className="h-4 w-4" />
-                  <span>ล้างตัวกรอง</span>
+                  <span>{tProducts('clearFilter')}</span>
                 </button>
               )}
             </div>
@@ -135,7 +141,7 @@ export default function ProductsPage() {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <p className="text-sm text-muted-foreground">
-              พบสินค้า <span className="font-semibold text-foreground">{filteredProducts.length}</span> รายการ
+              {tProducts('foundProducts')} <span className="font-semibold text-foreground">{filteredProducts.length}</span> {tProducts('items')}
             </p>
           </motion.div>
 
@@ -198,7 +204,7 @@ export default function ProductsPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
             >
-              <p className="text-lg text-muted-foreground">ไม่พบสินค้าในหมวดหมู่นี้</p>
+              <p className="text-lg text-muted-foreground">{tProducts('noProducts')}</p>
             </motion.div>
           )}
         </div>

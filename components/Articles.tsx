@@ -5,31 +5,33 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-
-const articles = [
-  {
-    id: 1,
-    title: "วิธีดูแลผิวให้สุขภาพดี",
-    excerpt: "เรียนรู้เทคนิคการดูแลผิวด้วยผลิตภัณฑ์ธรรมชาติ",
-    image: "/article/A3894919-4249-4205-8CBE-9C7C3186CA8A.jpg"
-  },
-  {
-    id: 2,
-    title: "ประโยชน์ของสมุนไพรไทย",
-    excerpt: "ค้นพบสรรพคุณของสมุนไพรไทยที่ช่วยบำรุงสุขภาพ",
-    image: "/article/C45F3A96-9EDA-4798-9B2E-9774121A325A.jpg"
-  },
-  {
-    id: 3,
-    title: "เคล็ดลับทำความสะอาดบ้าน",
-    excerpt: "วิธีทำความสะอาดบ้านให้สะอาดและปลอดภัย",
-    image: "/article/D018A4E8-5EA4-416E-A3A1-99B9C311502A.jpg"
-  }
-];
+import { useTranslations } from 'next-intl';
 
 export default function Articles() {
+  const t = useTranslations('home.articles');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
+
+  const articles = [
+    {
+      id: 1,
+      titleKey: "article1Title",
+      excerptKey: "article1Excerpt",
+      image: "/article/A3894919-4249-4205-8CBE-9C7C3186CA8A.jpg"
+    },
+    {
+      id: 2,
+      titleKey: "article2Title",
+      excerptKey: "article2Excerpt",
+      image: "/article/C45F3A96-9EDA-4798-9B2E-9774121A325A.jpg"
+    },
+    {
+      id: 3,
+      titleKey: "article3Title",
+      excerptKey: "article3Excerpt",
+      image: "/article/D018A4E8-5EA4-416E-A3A1-99B9C311502A.jpg"
+    }
+  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -63,15 +65,15 @@ export default function Articles() {
           transition={{ duration: 0.6 }}
         >
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">บทความที่น่าสนใจ</h2>
-            <p className="text-lg text-gray-600">เรียนรู้เทคนิคและเคล็ดลับจากผู้เชี่ยวชาญ</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">{t('title')}</h2>
+            <p className="text-lg text-gray-600">{t('subtitle')}</p>
           </div>
           <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.95 }}>
             <Link
               href="/articles"
               className="text-blue-600 hover:text-blue-700 font-medium inline-flex items-center gap-2"
             >
-              ดูทั้งหมด
+              {t('viewAll')}
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -106,7 +108,7 @@ export default function Articles() {
                 >
                   <Image
                     src={article.image}
-                    alt={article.title}
+                    alt={t(article.titleKey)}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -116,8 +118,8 @@ export default function Articles() {
                   />
                 </motion.div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{article.title}</h3>
-                  <p className="text-gray-600 text-sm line-clamp-2">{article.excerpt}</p>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{t(article.titleKey)}</h3>
+                  <p className="text-gray-600 text-sm line-clamp-2">{t(article.excerptKey)}</p>
                 </div>
               </Link>
             </motion.div>

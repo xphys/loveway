@@ -1,11 +1,14 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import Image from 'next/image';
 import { Facebook } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 export default function Footer() {
+  const t = useTranslations('footer');
+
   return (
     <footer className="relative bg-gradient-to-br from-secondary via-background to-secondary border-t border-border py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,9 +36,9 @@ export default function Footer() {
               </motion.div>
               <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent">Love Way</span>
             </div>
-            <p className="text-muted-foreground text-sm mb-3 leading-relaxed">123 ถนนสุขุมวิท กรุงเทพมหานคร 10110</p>
-            <p className="text-muted-foreground text-sm mb-2">โทร: 092 332 3421</p>
-            <p className="text-muted-foreground text-sm mb-6">อีเมล: info@loveway.com</p>
+            <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t('address')}</p>
+            <p className="text-muted-foreground text-sm mb-2">{t('phone')}: 092 332 3421</p>
+            <p className="text-muted-foreground text-sm mb-6">{t('email')}: info@loveway.com</p>
 
             {/* Social Links */}
             <div className="flex gap-3">
@@ -81,65 +84,65 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Company Links */}
+          {/* Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h3 className="font-bold text-foreground mb-6 text-lg">บริษัท</h3>
+            <h3 className="font-bold text-foreground mb-6 text-lg">{t('quickLinks')}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">เกี่ยวกับเรา</span>
+                <Link href="/" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('home')}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">ติดต่อเรา</span>
+                <Link href="/products" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('products')}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">นโยบายความเป็นส่วนตัว</span>
-                </Link>
+                <a href="#product-categories" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('categories')}</span>
+                </a>
               </li>
               <li>
-                <Link href="/terms" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">ข้อกำหนดและเงื่อนไข</span>
-                </Link>
+                <a href="https://www.facebook.com/lovewayprobiotics" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('contact')}</span>
+                </a>
               </li>
             </ul>
           </motion.div>
 
-          {/* Online Resources */}
+          {/* Product Categories */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <h3 className="font-bold text-foreground mb-6 text-lg">ออนไลน์</h3>
+            <h3 className="font-bold text-foreground mb-6 text-lg">{t('productCategories')}</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/how-to-order" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">วิธีสั่งซื้อ</span>
+                <Link href="/products?category=skincare" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('skincare')}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/payment" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">วิธีการชำระเงิน</span>
+                <Link href="/products?category=herbal" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('herbal')}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/shipping" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">การจัดส่ง</span>
+                <Link href="/products?category=cleaning" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('cleaning')}</span>
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">คำถามที่พบบ่อย</span>
+                <Link href="/products?category=pet-care" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200 inline-flex items-center group">
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">{t('petCare')}</span>
                 </Link>
               </li>
             </ul>
@@ -154,7 +157,7 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <p className="text-muted-foreground text-sm">© Copyright Love Way 2025. All rights reserved.</p>
+          <p className="text-muted-foreground text-sm">{t('copyright')}</p>
         </motion.div>
       </div>
     </footer>

@@ -1,13 +1,151 @@
 {
   "home": {
-    "title": "To get started, edit the page.tsx file.",
-    "description": "Looking for a starting point or more instructions? Head over to <templates>Templates</templates> or the <learning>Learning</learning> center.",
-    "deployNow": "Deploy Now",
-    "documentation": "Documentation"
+    "metaTitle": "Love Way | Premium Beauty & Health Products",
+    "metaDescription": "Discover premium beauty, skincare, herbal health, and pet care products. Quality brands for your wellness journey.",
+    "productSection": "Premium Quality Products from Nature",
+    "bannerText1": "Cleanliness, Good Health, and Peace of Mind for Everyone",
+    "bannerText2": "For Cleanliness and Good Health, For Peace of Mind",
+    "recommendedProducts": "Recommended Products",
+    "skincareProducts": "Skincare Products",
+    "herbalProducts": "Herbal Health Products",
+    "cleaningProducts": "Cleaning Products",
+    "petCareProducts": "Pet Care Products",
+    "hero": {
+      "badge": "Premium Quality Products from Nature",
+      "heading1": "From Inspiration",
+      "heading2": "of Faith",
+      "subtitle": "To Products that Provide Cleanliness, Good Health, and Peace of Mind",
+      "description": "Premium quality products from nature for a better life for everyone",
+      "feature1": "100% Natural",
+      "feature2": "Gentle on Skin",
+      "feature3": "High Quality",
+      "viewAllProducts": "View All Products",
+      "learnMore": "Learn More",
+      "scrollDown": "Scroll Down"
+    },
+    "about": {
+      "brandName": "Love Way",
+      "tagline": "Selecting the Best for All Your Needs",
+      "companyName": "Love Way Company Limited",
+      "description1": "We are a distributor of high-quality beauty and health products, carefully selecting leading brands from around the world to bring to you. With a commitment to offering the best products, so you can have confidence in every use.",
+      "description2": "We have a team of experts ready to provide friendly advice and service, to help you find the products that best meet your needs. With fast and safe delivery service.",
+      "feature1Title": "Highest Quality",
+      "feature1Desc": "Products certified to standards",
+      "feature2Title": "Safe",
+      "feature2Desc": "Tested and thoroughly researched",
+      "feature3Title": "Eco-Friendly",
+      "feature3Desc": "Caring for nature and sustainability",
+      "feature4Title": "Fair Pricing",
+      "feature4Desc": "Good quality at great value"
+    },
+    "categories": {
+      "title": "Product Categories",
+      "subtitle": "Choose from a variety of high-quality product categories",
+      "viewProducts": "View Products",
+      "skincare": {
+        "name": "Skincare Products",
+        "description": "High-quality skincare products from nature, gentle and safe"
+      },
+      "herbal": {
+        "name": "Herbal Products",
+        "description": "Natural herbal supplements and health products for good health"
+      },
+      "cleaning": {
+        "name": "Cleaning Products",
+        "description": "Multipurpose cleaning products, safe and eco-friendly"
+      },
+      "petCare": {
+        "name": "Pet Care Products",
+        "description": "High-quality pet care products for your beloved friends' good health"
+      }
+    },
+    "brands": {
+      "title": "Our Brands",
+      "subtitle": "Quality products from brands you trust"
+    },
+    "articles": {
+      "title": "Interesting Articles",
+      "subtitle": "Learn tips and techniques from experts",
+      "viewAll": "View All",
+      "article1Title": "5 Tips for Healthy Facial Care in Hot Weather",
+      "article1Excerpt": "Learn how to care for your face to stay healthy in hot weather with tips from experts...",
+      "article2Title": "Benefits of Thai Herbs You Should Know",
+      "article2Excerpt": "Discover the amazing benefits of Thai herbs that have been around for generations...",
+      "article3Title": "How to Choose the Right Cleaning Products for Your Home",
+      "article3Excerpt": "Guide to choosing appropriate and safe cleaning products for your home..."
+    },
+    "certifications": {
+      "badge": "Certified Excellence",
+      "title": "Quality You Can Trust",
+      "description": "All our products are certified by the Department of Medical Sciences (DMSc), ensuring the highest safety and quality standards for your peace of mind.",
+      "stat1Label": "Certifications",
+      "stat2Label": "Safety Tested",
+      "stat3Label": "Certified By",
+      "footer": "Certified by the Department of Medical Sciences, Thailand"
+    },
+    "media": {
+      "badge": "Industry Recognition",
+      "title": "Trusted by Experts",
+      "description": "We actively participate in industry conferences and events, sharing knowledge and staying at the forefront of innovation in health and beauty products.",
+      "eventLabel": "Government Event",
+      "event1Title": "OTOP/SMEs Medical Innovation Conference 2568",
+      "event1Date": "Department of Medical Sciences, MCC Hall Floor 4",
+      "event2Title": "Expert Panel Discussion",
+      "feature1": "Industry Participants",
+      "feature2": "Expert Panels",
+      "feature3": "Latest Event",
+      "feature4": "Partner",
+      "bannerTitle": "Leading Innovation in Health & Beauty",
+      "bannerDescription": "Collaborating with government agencies and industry experts to bring you the best products"
+    },
+    "featured": {
+      "badge": "Premium Selection",
+      "title": "Featured Products",
+      "description": "Discover our signature products, specially formulated with natural ingredients and certified for safety and effectiveness.",
+      "learnMore": "Learn More",
+      "footer": "All products are certified by the Department of Medical Sciences"
+    }
+  },
+  "products": {
+    "metaTitle": "Our Products | Love Way",
+    "metaDescription": "Browse our curated collection of premium beauty, skincare, herbal supplements, cleaning, and pet care products from trusted brands.",
+    "pageTitle": "All Products",
+    "pageSubtitle": "Find and choose the products you want",
+    "filterBy": "Category:",
+    "clearFilter": "Clear Filter",
+    "foundProducts": "Found",
+    "items": "items",
+    "noProducts": "No products found in this category",
+    "categoryAll": "All",
+    "categoryRecommended": "Recommended Products"
   },
   "metadata": {
-    "title": "Create Next App",
-    "description": "Generated by create next app"
+    "title": "Love Way | Premium Beauty & Health Products",
+    "description": "Your trusted source for premium beauty, skincare, herbal health, and pet care products. Quality brands for your wellness journey.",
+    "ogImage": "/logo.png",
+    "siteName": "Love Way"
+  },
+  "header": {
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "contact": "Contact"
+  },
+  "footer": {
+    "address": "123 Sukhumvit Road, Bangkok 10110",
+    "phone": "Tel",
+    "email": "Email",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "products": "Products",
+    "categories": "Categories",
+    "contact": "Contact Us",
+    "productCategories": "Product Categories",
+    "skincare": "Skincare",
+    "herbal": "Herbal Health",
+    "cleaning": "Cleaning Products",
+    "petCare": "Pet Care",
+    "copyright": "© Copyright Love Way 2025. All rights reserved."
   }
 }
 
