@@ -38,7 +38,7 @@ export default function Footer() {
             </div>
             <p className="text-muted-foreground text-sm mb-3 leading-relaxed">{t('address')}</p>
             <p className="text-muted-foreground text-sm mb-2">{t('phone')}: 092 332 3421</p>
-            <p className="text-muted-foreground text-sm mb-6">{t('email')}: info@loveway.com</p>
+            <p className="text-muted-foreground text-sm mb-6">{t('email')}: loveway2560@gmail.com</p>
 
             {/* Social Links */}
             <div className="flex gap-3">
