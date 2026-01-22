@@ -5,6 +5,7 @@ import { Link } from '@/i18n/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles, ShoppingBag, Leaf, Heart, TrendingUp } from 'lucide-react';
 import AnimatedBackground from './AnimatedBackground';
+import { useTranslations } from 'next-intl';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,6 +32,8 @@ const itemVariants = {
 
 
 export default function Hero() {
+  const t = useTranslations('home.hero');
+
   return (
     <section className="relative min-h-screen -mt-16 pt-16 flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-cyan-50/20">
       {/* Enhanced Animated Background */}
@@ -99,7 +102,7 @@ export default function Hero() {
               whileHover={{ scale: 1.05, y: -2 }}
             >
               <Sparkles className="h-4 w-4 animate-pulse" />
-              <span>ผลิตภัณฑ์คุณภาพสูงจากธรรมชาติ</span>
+              <span>{t('badge')}</span>
             </motion.div>
 
             {/* Main Heading */}
@@ -108,20 +111,20 @@ export default function Hero() {
               variants={itemVariants}
             >
               <span className="block text-5xl sm:text-6xl lg:text-7xl mb-3">
-                จากแรงบันดาลใจ
+                {t('heading1')}
               </span>
               <span className="block text-6xl sm:text-7xl lg:text-8xl bg-gradient-to-r from-blue-600 via-cyan-500 to-blue-600 bg-clip-text text-transparent bg-[length:200%_auto] animate-[shimmer_4s_linear_infinite]">
-                แห่งศรัทธา
+                {t('heading2')}
               </span>
             </motion.h1>
 
             {/* Subtitle */}
             <motion.div className="space-y-4" variants={itemVariants}>
               <p className="text-xl sm:text-2xl text-foreground/90 leading-relaxed font-medium max-w-xl">
-                สู่ผลิตภัณฑ์ที่มอบความสะอาด สุขภาพดี และความสงบใจ
+                {t('subtitle')}
               </p>
               <p className="text-base sm:text-lg text-muted-foreground max-w-lg leading-relaxed">
-                ผลิตภัณฑ์คุณภาพสูงจากธรรมชาติ เพื่อชีวิตที่ดีขึ้นของทุกคน
+                {t('description')}
               </p>
             </motion.div>
 
@@ -131,9 +134,9 @@ export default function Hero() {
               variants={itemVariants}
             >
               {[
-                { icon: Leaf, text: '100% ธรรมชาติ' },
-                { icon: Heart, text: 'อ่อนโยนต่อผิว' },
-                { icon: TrendingUp, text: 'คุณภาพสูง' },
+                { icon: Leaf, text: t('feature1') },
+                { icon: Heart, text: t('feature2') },
+                { icon: TrendingUp, text: t('feature3') },
               ].map((feature, idx) => (
                 <motion.div
                   key={idx}
@@ -162,7 +165,7 @@ export default function Hero() {
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <ShoppingBag className="h-5 w-5" />
-                    ดูสินค้าทั้งหมด
+                    {t('viewAllProducts')}
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <motion.div
@@ -184,7 +187,7 @@ export default function Hero() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                เรียนรู้เพิ่มเติม
+                {t('learnMore')}
               </motion.button>
             </motion.div>
           </motion.div>
@@ -276,7 +279,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
         >
-          <span className="text-xs text-muted-foreground font-medium">เลื่อนลง</span>
+          <span className="text-xs text-muted-foreground font-medium">{t('scrollDown')}</span>
           <motion.div
             className="w-6 h-10 rounded-full border-2 border-blue-300/50 flex items-start justify-center p-2"
             animate={{ y: [0, 8, 0] }}

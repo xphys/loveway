@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
+import { useTranslations } from 'next-intl';
 
 const brands = [
   { name: "Celina's", gradient: "from-pink-400 via-pink-300 to-pink-200", image: "/brand/celina.png" },
@@ -13,6 +14,7 @@ const brands = [
 ];
 
 export default function BrandShowcase() {
+  const t = useTranslations('home.brands');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -58,10 +60,10 @@ export default function BrandShowcase() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            แบรนด์ของเรา
+            {t('title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            ผลิตภัณฑ์คุณภาพจากแบรนด์ที่คุณไว้วางใจ
+            {t('subtitle')}
           </p>
         </motion.div>
         <motion.div

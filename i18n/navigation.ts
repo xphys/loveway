@@ -4,7 +4,7 @@ import { locales } from '../i18n';
 
 export const routing = defineRouting({
   locales,
-  defaultLocale: 'en',
+  defaultLocale: 'th',
   localePrefix: 'always'
 });
 

@@ -73,6 +73,37 @@
       "article2Excerpt": "Discover the amazing benefits of Thai herbs that have been around for generations...",
       "article3Title": "How to Choose the Right Cleaning Products for Your Home",
       "article3Excerpt": "Guide to choosing appropriate and safe cleaning products for your home..."
+    },
+    "certifications": {
+      "badge": "Certified Excellence",
+      "title": "Quality You Can Trust",
+      "description": "All our products are certified by the Department of Medical Sciences (DMSc), ensuring the highest safety and quality standards for your peace of mind.",
+      "stat1Label": "Certifications",
+      "stat2Label": "Safety Tested",
+      "stat3Label": "Certified By",
+      "footer": "Certified by the Department of Medical Sciences, Thailand"
+    },
+    "media": {
+      "badge": "Industry Recognition",
+      "title": "Trusted by Experts",
+      "description": "We actively participate in industry conferences and events, sharing knowledge and staying at the forefront of innovation in health and beauty products.",
+      "eventLabel": "Government Event",
+      "event1Title": "OTOP/SMEs Medical Innovation Conference 2568",
+      "event1Date": "Department of Medical Sciences, MCC Hall Floor 4",
+      "event2Title": "Expert Panel Discussion",
+      "feature1": "Industry Participants",
+      "feature2": "Expert Panels",
+      "feature3": "Latest Event",
+      "feature4": "Partner",
+      "bannerTitle": "Leading Innovation in Health & Beauty",
+      "bannerDescription": "Collaborating with government agencies and industry experts to bring you the best products"
+    },
+    "featured": {
+      "badge": "Premium Selection",
+      "title": "Featured Products",
+      "description": "Discover our signature products, specially formulated with natural ingredients and certified for safety and effectiveness.",
+      "learnMore": "Learn More",
+      "footer": "All products are certified by the Department of Medical Sciences"
     }
   },
   "products": {

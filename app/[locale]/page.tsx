@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -13,6 +14,8 @@ import BrandShowcase from '@/components/BrandShowcase';
 import ProductCarousel from '@/components/ProductCarousel';
 import ProductDetailModal from '@/components/ProductDetailModal';
 import Banner from '@/components/Banner';
+import Certifications from '@/components/Certifications';
+import MediaPresence from '@/components/MediaPresence';
 import Articles from '@/components/Articles';
 import Footer from '@/components/Footer';
 import { motion } from 'framer-motion';
@@ -26,6 +29,7 @@ const frontCleaningProducts = allProducts.filter((product: Product) => product.c
 const frontPetProducts = allProducts.filter((product: Product) => product.category === 'pet-care' && product.front_show === true);
 
 export default function Home() {
+  const t = useTranslations('home');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,7 +53,9 @@ export default function Home() {
       <Header />
       <Hero />
       <About />
-      
+      <Certifications />
+      <MediaPresence />
+
       {/* Product Categories Variants - Select Your Favorite Design */}
       <div id="product-categories" className="relative flex items-center justify-center my-12">
         <div className="w-full h-1 bg-gradient-to-r from-green-300 via-blue-200 to-purple-300 rounded-full opacity-70" />
@@ -60,7 +66,7 @@ export default function Home() {
             <rect x="12" y="18" width="4" height="7" rx="2" fill="currentColor"/>
           </svg>
           <span className="font-semibold text-base md:text-lg text-gray-700 tracking-wide">
-            ผลิตภัณฑ์คุณภาพสูงจากธรรมชาติ
+            {t('productSection')}
           </span>
         </div>
       </div>
@@ -69,50 +75,50 @@ export default function Home() {
       {/* <div className="h-4 bg-gray-100" /> */}
       
       <BrandShowcase />
-      <Banner 
-        text="ความสะอาด สุขภาพดี และความสงบใจ สำหรับทุกคน" 
-        variant="green" 
+      <Banner
+        text={t('bannerText1')}
+        variant="green"
         backgroundImage="/banner/1.png"
         products={suggestedProducts.slice(0, 6)}
         onProductClick={handleProductClick}
       />
       <ProductCarousel
-        title="สินค้าแนะนำ"
+        title={t('recommendedProducts')}
         products={suggestedProducts}
         viewAllLink="/products/recommended"
         categoryFilter="recommended"
         onProductClick={(product: Product) => handleProductClick(product)}
       />
       <ProductCarousel
-        title="ผลิตภัณฑ์บำรุงผิว"
+        title={t('skincareProducts')}
         products={frontSkincareProducts}
         viewAllLink="/products/skincare"
         categoryFilter="skincare"
         onProductClick={handleProductClick}
       />
       <ProductCarousel
-        title="ผลิตภัณฑ์สมุนไพรเพื่อสุขภาพ"
+        title={t('herbalProducts')}
         products={frontHerbalProducts}
         viewAllLink="/products/herbal"
         categoryFilter="herbal"
         onProductClick={handleProductClick}
       />
-      <Banner text="เพื่อความสะอาดและสุขภาพดี เพื่อความสงบใจ" variant="blue" />
+      <Banner text={t('bannerText2')} variant="blue" />
       <ProductCarousel
-        title="ผลิตภัณฑ์ทำความสะอาด"
+        title={t('cleaningProducts')}
         products={frontCleaningProducts}
         viewAllLink="/products/cleaning"
         categoryFilter="cleaning"
         onProductClick={handleProductClick}
       />
       <ProductCarousel
-        title="ผลิตภัณฑ์สำหรับสัตว์เลี้ยง"
+        title={t('petCareProducts')}
         products={frontPetProducts}
         viewAllLink="/products/pet-care"
         categoryFilter="pet-care"
         onProductClick={handleProductClick}
       />
-      <Banner text="เพื่อความสะอาดและสุขภาพดี เพื่อความสงบใจ" variant="blue" />
+      <Banner text={t('bannerText2')} variant="blue" />
       <Articles />
       <Footer />
 

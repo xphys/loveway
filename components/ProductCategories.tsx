@@ -6,37 +6,39 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
-
-const categories = [
-  {
-    name: 'ผลิตภัณฑ์บำรุงผิว',
-    description: 'ผลิตภัณฑ์บำรุงผิวคุณภาพสูงจากธรรมชาติ',
-    slug: 'skincare',
-    image: '/product/category/skincare-cate.png',
-  },
-  {
-    name: 'ผลิตภัณฑ์สมุนไพร',
-    description: 'ผลิตภัณฑ์สมุนไพรเพื่อสุขภาพและความเป็นอยู่ที่ดี',
-    slug: 'herbal',
-    image: '/product/category/herb-cate.png',
-  },
-  {
-    name: 'ผลิตภัณฑ์ทำความสะอาด',
-    description: 'น้ำยาทำความสะอาดอเนกประสงค์คุณภาพสูง',
-    slug: 'cleaning',
-    image: '/product/category/clean-cate.png',
-  },
-  {
-    name: 'ผลิตภัณฑ์สำหรับสัตว์เลี้ยง',
-    description: 'ผลิตภัณฑ์ดูแลสัตว์เลี้ยงอย่างอ่อนโยนและปลอดภัย',
-    slug: 'pet-care',
-    image: '/product/category/pet-cate.png',
-  },
-];
+import { useTranslations } from 'next-intl';
 
 export default function ProductCategories() {
+  const t = useTranslations('home.categories');
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  const categories = [
+    {
+      nameKey: 'skincare.name',
+      descriptionKey: 'skincare.description',
+      slug: 'skincare',
+      image: '/product/category/skincare-cate.png',
+    },
+    {
+      nameKey: 'herbal.name',
+      descriptionKey: 'herbal.description',
+      slug: 'herbal',
+      image: '/product/category/herb-cate.png',
+    },
+    {
+      nameKey: 'cleaning.name',
+      descriptionKey: 'cleaning.description',
+      slug: 'cleaning',
+      image: '/product/category/clean-cate.png',
+    },
+    {
+      nameKey: 'petCare.name',
+      descriptionKey: 'petCare.description',
+      slug: 'pet-care',
+      image: '/product/category/pet-cate.png',
+    },
+  ];
 
   return (
     <section className="relative py-20 md:py-28 bg-white" ref={ref}>
@@ -49,10 +51,10 @@ export default function ProductCategories() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            หมวดหมู่สินค้า
+            {t('title')}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            เลือกจากหลากหลายหมวดหมู่ผลิตภัณฑ์คุณภาพสูง
+            {t('subtitle')}
           </p>
         </motion.div>
 
@@ -72,7 +74,7 @@ export default function ProductCategories() {
                   <div className="absolute inset-0">
                     <Image
                       src={category.image}
-                      alt={category.name}
+                      alt={t(category.nameKey)}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
@@ -90,16 +92,16 @@ export default function ProductCategories() {
                       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                       transition={{ delay: index * 0.1 + 0.3 }}
                     >
-                      {category.name}
+                      {t(category.nameKey)}
                     </motion.h3>
-                    
+
                     <motion.p
                       className="text-gray-700 text-sm md:text-base mb-4 line-clamp-2"
                       initial={{ opacity: 0, y: 20 }}
                       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                       transition={{ delay: index * 0.1 + 0.4 }}
                     >
-                      {category.description}
+                      {t(category.descriptionKey)}
                     </motion.p>
                     
                     {/* Button */}
@@ -111,7 +113,7 @@ export default function ProductCategories() {
                       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                       transition={{ delay: index * 0.1 + 0.5 }}
                     >
-                      <span>ดูสินค้า</span>
+                      <span>{t('viewProducts')}</span>
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </motion.div>
                   </div>
