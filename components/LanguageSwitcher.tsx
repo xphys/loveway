@@ -1,19 +1,28 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/navigation';
+import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
 import { Languages } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 export default function LanguageSwitcher() {
   const pathname = usePathname();
+  const router = useRouter();
+  const currentLocale = useLocale();
   const [isOpen, setIsOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  // Parse locale directly from URL pathname
-  const currentLocale = pathname.startsWith('/th') ? 'th' : 'en';
-
-  // Get the path without locale prefix
-  const pathWithoutLocale = pathname.replace(/^\/(en|th)/, '') || '/';
+  const handleLocaleChange = (locale: string) => {
+    setIsOpen(false);
+    startTransition(() => {
+      // Get pathname without locale and use push instead of replace
+      const pathWithoutLocale = pathname.startsWith(`/${currentLocale}`)
+        ? pathname.slice(`/${currentLocale}`.length) || '/'
+        : pathname;
+      router.push(pathWithoutLocale, { locale: locale as 'en' | 'th' });
+    });
+  };
 
   return (
     <div className="relative">
@@ -43,24 +52,26 @@ export default function LanguageSwitcher() {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
           >
-            <a
-              href={`/en${pathWithoutLocale}`}
+            <button
+              onClick={() => handleLocaleChange('en')}
+              disabled={isPending}
               className={`w-full px-4 py-3 text-left text-sm hover:bg-accent transition-colors duration-200 flex items-center gap-2 ${
                 currentLocale === 'en' ? 'bg-accent/50 font-semibold' : ''
               }`}
             >
               <span className="text-lg">🇬🇧</span>
               <span>English</span>
-            </a>
-            <a
-              href={`/th${pathWithoutLocale}`}
+            </button>
+            <button
+              onClick={() => handleLocaleChange('th')}
+              disabled={isPending}
               className={`w-full px-4 py-3 text-left text-sm hover:bg-accent transition-colors duration-200 flex items-center gap-2 ${
                 currentLocale === 'th' ? 'bg-accent/50 font-semibold' : ''
               }`}
             >
               <span className="text-lg">🇹🇭</span>
               <span>ไทย</span>
-            </a>
+            </button>
           </motion.div>
         </>
       )}
