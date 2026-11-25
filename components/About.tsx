@@ -6,6 +6,11 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
+const storyImages = [
+  { src: '/image-2/31067.jpg', alt: 'About Me - Jod Yok Khiao Story, the founder\'s journey', width: 1071, height: 1468 },
+  { src: '/image-2/414621.jpg', alt: 'Rapha Biotech - company background and herbal skin cleaning spray for animals', width: 1086, height: 1448 },
+];
+
 export default function About() {
   const t = useTranslations('home.about');
   const ref = useRef(null);
@@ -148,6 +153,35 @@ export default function About() {
                   </motion.div>
                 </div>
               </div>
+            </div>
+          </motion.div>
+
+          {/* Our Story - founder & company background */}
+          <motion.div variants={itemVariants} className="mt-24">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+                {t('storyTitle')}
+              </h3>
+              <p className="text-lg text-gray-600">{t('storySubtitle')}</p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {storyImages.map((img) => (
+                <motion.div
+                  key={img.src}
+                  className="rounded-2xl overflow-hidden bg-white shadow-xl ring-1 ring-blue-100"
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={img.width}
+                    height={img.height}
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="w-full h-auto"
+                  />
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </motion.div>
