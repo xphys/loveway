@@ -14,6 +14,13 @@ const certifications = [
   { id: 6, image: '/new_images/345610_0.jpg', year: '2567', type: 'Safety Product' },
 ];
 
+const awards = [
+  { id: 1, image: '/image-2/414620.jpg', alt: 'SME Provincial Champions 2024 trophy and certificate', width: 1448, height: 1086 },
+  { id: 2, image: '/image-2/414619.jpg', alt: 'MSME Provincial Champion Awards 2024 certificate, Udon Thani', width: 1509, height: 1042 },
+  { id: 3, image: '/image-2/31068.jpg', alt: 'DMSc Safety Product certificate, Community Medical Sciences Fair 2568', width: 1517, height: 1037 },
+  { id: 4, image: '/image-2/414622.jpg', alt: "DMSc quality certificate for Celina's Probiotic Body Lotion", width: 1520, height: 1035 },
+];
+
 const featuredCertifications = [
   { id: 1, image: '/new_images/345611_0.jpg', title: 'Curcuma Coffee Enzyme Scrub Soap', badge: 'DMSc Certified', gradient: 'from-orange-100 via-amber-50 to-yellow-50' },
   { id: 2, image: '/new_images/345612_0.jpg', title: 'Probiotic Body Liquid Soap', badge: 'Smart Product', gradient: 'from-blue-100 via-cyan-50 to-sky-50' },
@@ -109,6 +116,43 @@ export default function Certifications() {
                   </div>
                 </div>
               </motion.div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Awards & Certificates */}
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center justify-center gap-2 mb-3">
+            <Award className="h-7 w-7 text-blue-600" />
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900">{t('awardsTitle')}</h3>
+          </div>
+          <p className="text-lg text-gray-600">{t('awardsSubtitle')}</p>
+        </motion.div>
+        <div className="grid sm:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto mb-16">
+          {awards.map((award, idx) => (
+            <motion.div
+              key={award.id}
+              className="rounded-2xl overflow-hidden bg-white shadow-lg border border-blue-100/50"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              whileHover={{ y: -6 }}
+            >
+              <Image
+                src={award.image}
+                alt={award.alt}
+                width={award.width}
+                height={award.height}
+                sizes="(min-width: 640px) 50vw, 100vw"
+                className="w-full h-auto"
+              />
             </motion.div>
           ))}
         </div>

@@ -36,7 +36,9 @@
       "feature3Title": "Eco-Friendly",
       "feature3Desc": "Caring for nature and sustainability",
       "feature4Title": "Fair Pricing",
-      "feature4Desc": "Good quality at great value"
+      "feature4Desc": "Good quality at great value",
+      "storyTitle": "Our Story",
+      "storySubtitle": "The people and the journey behind our products"
     },
     "categories": {
       "title": "Product Categories",
@@ -81,6 +83,8 @@
       "stat1Label": "Certifications",
       "stat2Label": "Safety Tested",
       "stat3Label": "Certified By",
+      "awardsTitle": "Awards & Certificates",
+      "awardsSubtitle": "Recognition from government agencies for our quality and achievements",
       "footer": "Certified by the Department of Medical Sciences, Thailand"
     },
     "media": {
