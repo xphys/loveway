@@ -3,3 +3,8 @@ packages:
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  sharp: false
+  unrs-resolver: false
